@@ -45,6 +45,15 @@
   display: flex;
 }
 
+.destroyer-container-vertical {
+  width: 80px;
+  height: 40px;
+  margin: 10px;
+  background-color: darkblue;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .submarine-container {
   width: 120px;
   height: 40px;
@@ -75,4 +84,20 @@
   margin: 10px;
   background-color: yellow;
   display: flex;
+}
+
+.destroyer {
+  background-color: darkblue;
+}
+.submarine {
+  background-color: aqua;
+}
+.cruiser {
+  background-color: purple;
+}
+.battleship {
+  background-color: green;
+}
+.carrier {
+  background-color: yellow;
 }
