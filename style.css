@@ -27,9 +27,12 @@
 
 .grid-display {
   width: 400px;
-  height: 400px;
+  height: 250px;
   margin: 20px;
   background-color: lightcoral;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .ship div {
@@ -121,15 +124,27 @@
 .destroyer {
   background-color: darkblue;
 }
+
 .submarine {
   background-color: aqua;
 }
+
 .cruiser {
   background-color: purple;
 }
+
 .battleship {
   background-color: green;
 }
+
 .carrier {
   background-color: yellow;
+}
+
+.boom {
+  background-color: red;
+}
+
+.miss {
+  background-color: white;
 }
