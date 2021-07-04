@@ -87,5 +87,5 @@ io.on('connection', (socket) => {
     connections[playerIndex] = null;
     socket.emit('timeout');
     socket.disconnect();
-  }, 6000); // 10 minute limit
+  }, 60000); // 10 minute limit
 });

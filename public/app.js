@@ -115,9 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playerConnectedOrDisconnected(num) {
       let player = `.p${parseInt(num) + 1}`;
-      document
-        .querySelector(`${player} .connect span`)
-        .classList.toggle('green');
+      document.querySelector(`${player} .connected`).classList.toggle('green');
       if (parseInt(num) === playerNum)
         document.querySelector(player).style.fontWeight = 'bold';
     }
