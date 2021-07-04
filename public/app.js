@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const rotateButton = document.querySelector('#rotate');
   const turnDisplay = document.querySelector('#whose-go');
   const infoDisplay = document.querySelector('#info');
+  const setupButtons = document.getElementById('setup-buttons');
   const userSquares = [];
   const computerSquares = [];
   let isHorizontal = true;
@@ -106,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
       enemyReady = true;
       playerReady(num);
       if (ready) playGameMulti(socket);
+      setupButtons.style.display = 'none';
     });
 
     // check player statuses
@@ -156,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playerConnectedOrDisconnected(num) {
       let player = `.p${parseInt(num) + 1}`;
-      document.querySelector(`${player} .connected`).classList.toggle('green');
+      document.querySelector(`${player} .connected`).classList.toggle('active');
       if (parseInt(num) === playerNum)
         document.querySelector(player).style.fontWeight = 'bold';
     }
@@ -170,7 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
     generate(shipArray[3]);
     generate(shipArray[4]);
 
-    startButton.addEventListener('click', playGameSingle);
+    startButton.addEventListener('click', () => {
+      setupButtons.style.display = 'none';
+      playGameSingle();
+    });
   }
 
   // create boards
@@ -318,15 +323,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isHorizontal && !newNotAllowedHorizontal.includes(shipLastId)) {
       for (let i = 0; i < draggedShipLength; i++) {
+        let directionClass;
+        if (i === 0) directionClass = 'start';
+        if (i === draggedShipLength - 1) directionClass = 'end';
         userSquares[
           parseInt(this.dataset.id) - selectedShipIndex + i
-        ].classList.add('taken', shipClass);
+        ].classList.add('taken', 'horizontal', directionClass, shipClass);
       }
     } else if (!isHorizontal && !newNotAllowedVertical.includes(shipLastId)) {
       for (let i = 0; i < draggedShipLength; i++) {
+        let directionClass;
+        if (i === 0) directionClass = 'start';
+        if (i === draggedShipLength - 1) directionClass = 'end';
         userSquares[
           parseInt(this.dataset.id) - selectedShipIndex + width * i
-        ].classList.add('taken', shipClass);
+        ].classList.add('taken', 'vertical', directionClass, shipClass);
       }
     } else return;
 
@@ -359,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function playerReady(num) {
     let player = `.p${parseInt(num) + 1}`;
-    document.querySelector(`${player} .ready span`).classList.toggle('green');
+    document.querySelector(`${player} .ready`).classList.toggle('active');
   }
 
   // game logic for single player
@@ -422,7 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gameMode === 'singlePlayer')
       square = Math.floor(Math.random() * userSquares.length);
     if (!userSquares[square].classList.contains('boom')) {
-      userSquares[square].classList.add('boom');
+      const hit = userSquares[square].classList.contains('taken');
+      userSquares[square].classList.add(hit ? 'boom' : 'miss');
       if (userSquares[square].classList.contains('destroyer'))
         cpuDestroyerCount++;
       if (userSquares[square].classList.contains('submarine'))
