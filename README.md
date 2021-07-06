@@ -7,7 +7,7 @@ I would like to come back to this project eventually to improve the UI and possi
 
 https://battleship-javascript.herokuapp.com/
 
-##bugs
+### bugs
 
         not all invalid ship placements are recognized
         possible to stack ships
